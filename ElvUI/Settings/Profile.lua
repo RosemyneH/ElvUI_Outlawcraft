@@ -1367,6 +1367,7 @@ P.datatexts = {
 	--Datatext Options
 	---General
 	goldFormat = "BLIZZARD",
+	hideExposureNormal = false,
 	goldCoins = true,
 	---Time
 	realmTime = false,

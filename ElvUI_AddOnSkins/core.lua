@@ -109,6 +109,7 @@ local addonList = {
 	"QDKP2_GUI",
 	"LootWonAlert",
 	"ProjectAstral",
+	"OutlawCraft",
 }
 local addonAlias = {
 	["DBM"] = "DBM-Core",

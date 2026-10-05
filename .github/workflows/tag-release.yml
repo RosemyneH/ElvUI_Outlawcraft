@@ -35,7 +35,7 @@ jobs:
         run: |
           TAG="${{ steps.meta.outputs.tag }}"
           mkdir -p dist
-          zip -r "dist/ElvUI_Astral-${TAG}.zip" \
+          zip -r "dist/ElvUI_Outlawcraft-${TAG}.zip" \
             ElvUI \
             ElvUI_OptionsUI \
             ElvUI_AddOnSkins \
@@ -61,10 +61,10 @@ jobs:
           ' CHANGELOG.md)
 
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "dist/ElvUI_Astral-${TAG}.zip" --clobber
+            gh release upload "$TAG" "dist/ElvUI_Outlawcraft-${TAG}.zip" --clobber
           else
             gh release create "$TAG" \
-              --title "Astral ${VERSION}" \
+              --title "Outlawcraft ${VERSION}" \
               --notes "$BODY" \
-              "dist/ElvUI_Astral-${TAG}.zip"
+              "dist/ElvUI_Outlawcraft-${TAG}.zip"
           fi

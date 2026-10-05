@@ -421,6 +421,7 @@ end
 
 function M:LoadLoot()
 	if not E.private.general.loot then return end
+	if _G.OutlawCraft and _G.OutlawCraft.Settings and _G.OutlawCraft.Settings.Get("lootWindow") ~= false then return end
 
 	lootFrameHolder = CreateFrame("Frame", "ElvLootFrameHolder", E.UIParent)
 	lootFrameHolder:Point("TOP", 0, -50)

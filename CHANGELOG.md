@@ -1,9 +1,24 @@
 # Changelog
 
-All notable changes to Astral are documented here.
+All notable changes to ElvUI Outlawcraft are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
+Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_Astral).
 
+## [7.44](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.44) (2026-10-05)
+
+### Features
+
+* OutlawCraft add-on skin: every OutlawCraft window, button, slot and scroll bar in ElvUI media, fonts and colours
+* Datatexts for OutlawCraft: Hunger, Thirst, Hunger Regen, Food & Water (with regeneration tooltip) and Exposure (body heat / wetness; right-click or `/ec` → DataTexts → "Hide Comfortable / Dry" leaves out the normal stages)
+* A Crafting tab under the spellbook's school tabs opens the Blueprints crafting window
+* ElvUI's loot frame stands down while the OutlawCraft loot window is enabled
+* ElvUI tooltips take over the tooltip look from OutlawCraft when the ElvUI tooltip module is on
+
+### Changes
+
+* Project Astral features (micro button, GM icon, reagent bank button) require the ProjectAstral add-on
+* Update and support links point to ElvUI_Outlawcraft
 
 ## [7.43](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.43) (2026-09-21)
 

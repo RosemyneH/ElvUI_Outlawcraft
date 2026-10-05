@@ -37,5 +37,6 @@
 	<Script file="ShadowCrit.lua"/>
 	<Script file="ArcaneCrit.lua"/>
 	<Script file="Achievement.lua"/>
+	<Script file="OutlawCraft.lua"/>
 	<Script file="ConfigElvUI.lua"/>
 </Ui>

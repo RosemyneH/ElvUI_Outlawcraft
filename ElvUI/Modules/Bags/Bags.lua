@@ -1644,24 +1644,26 @@ function B:ContructContainerFrame(name, isBank)
 		f.vendorGraysButton:SetScript("OnClick", B.VendorGrayCheck)
 
 		-- ʕ •ᴥ•ʔ✿ Deposit trade goods / reagents into the reagent bank ✿ ʕ •ᴥ•ʔ
-		f.reagentButton = CreateFrame("Button", name.."ReagentButton", f)
-		f.reagentButton:Size(16 + E.Border)
-		f.reagentButton:SetTemplate()
-		f.reagentButton:Point("RIGHT", f.vendorGraysButton, "LEFT", -5, 0)
-		f.reagentButton:SetNormalTexture("Interface\\Icons\\INV_Misc_Bag_10_Green")
-		f.reagentButton:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-		f.reagentButton:GetNormalTexture():SetInside()
-		f.reagentButton:SetPushedTexture("Interface\\Icons\\INV_Misc_Bag_10_Green")
-		f.reagentButton:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
-		f.reagentButton:GetPushedTexture():SetInside()
-		f.reagentButton:StyleButton(nil, true)
-		f.reagentButton.ttText = "Deposit Reagents"
-		f.reagentButton:SetScript("OnEnter", B.Tooltip_Show)
-		f.reagentButton:SetScript("OnLeave", GameTooltip_Hide)
-		f.reagentButton:SetScript("OnClick", function()
-			B:DepositToReagentBank()
-		end)
-		f.reagentButton.__elvReagentButton = true
+		if E:IsAstralEnabled() then
+			f.reagentButton = CreateFrame("Button", name.."ReagentButton", f)
+			f.reagentButton:Size(16 + E.Border)
+			f.reagentButton:SetTemplate()
+			f.reagentButton:Point("RIGHT", f.vendorGraysButton, "LEFT", -5, 0)
+			f.reagentButton:SetNormalTexture("Interface\\Icons\\INV_Misc_Bag_10_Green")
+			f.reagentButton:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+			f.reagentButton:GetNormalTexture():SetInside()
+			f.reagentButton:SetPushedTexture("Interface\\Icons\\INV_Misc_Bag_10_Green")
+			f.reagentButton:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
+			f.reagentButton:GetPushedTexture():SetInside()
+			f.reagentButton:StyleButton(nil, true)
+			f.reagentButton.ttText = "Deposit Reagents"
+			f.reagentButton:SetScript("OnEnter", B.Tooltip_Show)
+			f.reagentButton:SetScript("OnLeave", GameTooltip_Hide)
+			f.reagentButton:SetScript("OnClick", function()
+				B:DepositToReagentBank()
+			end)
+			f.reagentButton.__elvReagentButton = true
+		end
 
 		--Search
 		f.editBox = CreateFrame("EditBox", name.."EditBox", f)

@@ -33,7 +33,7 @@ jobs:
       - name: Build AddOns zip
         run: |
           mkdir -p dist
-          zip -r "dist/ElvUI_Astral-${{ needs.release-please.outputs.tag_name }}.zip" \
+          zip -r "dist/ElvUI_Outlawcraft-${{ needs.release-please.outputs.tag_name }}.zip" \
             ElvUI \
             ElvUI_OptionsUI \
             ElvUI_AddOnSkins \

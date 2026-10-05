@@ -1,22 +1,22 @@
 <div align="center">
 
-# ElvUI for Project Astral
+# ElvUI for OutlawCraft
 
 <br/>
 
 [![WoW](https://img.shields.io/badge/WoW-3.3.5a-6f42c1?style=flat-square)](#)
-[![For](https://img.shields.io/badge/for-Project%20Astral-1784d1?style=flat-square)](#)
+[![For](https://img.shields.io/badge/for-OutlawCraft-1784d1?style=flat-square)](#)
 [![License](https://img.shields.io/badge/license-GPL--2.0-blue?style=flat-square)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/RosemyneH/ElvUI_Astral?style=flat-square&label=release)](https://github.com/RosemyneH/ElvUI_Astral/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/RosemyneH/ElvUI_Astral/total?style=flat-square)](https://github.com/RosemyneH/ElvUI_Astral/releases)
+[![Release](https://img.shields.io/github/v/release/RosemyneH/ElvUI_Outlawcraft?style=flat-square&label=release)](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/RosemyneH/ElvUI_Outlawcraft/total?style=flat-square)](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases)
 
 <br/>
 
-[**Latest Release**](https://github.com/RosemyneH/ElvUI_Astral/releases/latest)
+[**Latest Release**](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/latest)
 &nbsp;·&nbsp;
 [**Changelog**](CHANGELOG.md)
 &nbsp;·&nbsp;
-[**Issues**](https://github.com/RosemyneH/ElvUI_Astral/issues)
+[**Issues**](https://github.com/RosemyneH/ElvUI_Outlawcraft/issues)
 
 </div>
 
@@ -28,8 +28,8 @@
 
 </div>
 
-1. Download the zip from the [latest release](https://github.com/RosemyneH/ElvUI_Astral/releases/latest).
-2. Extract every `ElvUI*` folder into `Interface\AddOns` on your **Project Astral** client.
+1. Download the zip from the [latest release](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/latest).
+2. Extract every `ElvUI*` folder into `Interface\AddOns` on your **OutlawCraft** client.
 3. Restart World of Warcraft and run `/ec`.
 
 Keep the folder names as they are. Do not nest them inside another directory.
@@ -57,6 +57,21 @@ Keep the folder names as they are. Do not nest them inside another directory.
 
 <div align="center">
 
+## OutlawCraft
+
+</div>
+
+- The **OutlawCraft** add-on skin restyles every OutlawCraft window (lockboxes, loot, crafting, clans, bounty board, guide and the rest) in ElvUI's media, fonts and colours. Toggle it under `/ec` → AddOn Skins.
+- New datatexts under `/ec` → DataTexts: **Hunger**, **Thirst**, **Hunger Regen**, **Food & Water** and **Exposure**.
+- With the skin on, the spellbook gets a **Crafting** tab below the school tabs.
+- While OutlawCraft's own loot window is on, ElvUI's loot frame stays out of the way so only one window opens.
+- With ElvUI tooltips enabled, ElvUI owns the tooltip look; OutlawCraft still adds its maker and realm lines.
+- Project Astral features (micro button, GM icon, reagent bank button) only switch on when the `ProjectAstral` add-on is present.
+
+---
+
+<div align="center">
+
 ## Releases
 
 </div>
@@ -78,6 +93,6 @@ Every merge to `main` is scanned for [Conventional Commits](https://www.conventi
 
 Released under the [GNU General Public License v2.0](LICENSE).
 
-ElvUI originally by **Elv** and **Bunny**. This pack is maintained for **Project Astral**, not as a standalone ElvUI rebrand.
+ElvUI originally by **Elv** and **Bunny**. This pack is maintained for **OutlawCraft**, not as a standalone ElvUI rebrand.
 
 </div>
