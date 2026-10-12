@@ -4,6 +4,13 @@ All notable changes to ElvUI Outlawcraft are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
 
+## [7.45.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/compare/v7.44.0...v7.45.0) (2026-10-12)
+
+
+### Features
+
+* finish the OutlawCraft options and drop leftover Astral pieces ([782dbbe](https://github.com/RosemyneH/ElvUI_Outlawcraft/commit/782dbbe2990a453df0480cd9660d95432ace6fa3))
+
 ## [7.44.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.44.0) (2026-10-05)
 
 ### Features
