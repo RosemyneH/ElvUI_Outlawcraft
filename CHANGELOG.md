@@ -4,7 +4,7 @@ All notable changes to ElvUI Outlawcraft are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
 
-## [7.44](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.44) (2026-10-05)
+## [7.44.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.44.0) (2026-10-05)
 
 ### Features
 

@@ -18,7 +18,7 @@ jobs:
   package:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
@@ -52,13 +52,19 @@ jobs:
         run: |
           TAG="${{ steps.meta.outputs.tag }}"
           VERSION="${TAG#v}"
-          BODY=$(awk -v ver="$VERSION" '
-            /^## \[/ {
-              if ($0 ~ "\\[" ver "\\]") { p=1; next }
-              if (p) exit
-            }
-            p { print }
-          ' CHANGELOG.md)
+          notes_for() {
+            awk -v ver="$1" '
+              /^## \[/ {
+                if (index($0, "[" ver "]") > 0) { p=1; next }
+                if (p) exit
+              }
+              p { print }
+            ' CHANGELOG.md
+          }
+          BODY=$(notes_for "$VERSION")
+          if [ -z "$BODY" ]; then
+            BODY=$(notes_for "${VERSION%.0}")
+          fi
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "dist/ElvUI_Outlawcraft-${TAG}.zip" --clobber
