@@ -46,8 +46,8 @@ function E:InverseClassColor(class, usePriestColor, forceCap)
 	return color
 end
 
-function E:IsAstralEnabled()
-	return IsAddOnLoaded("ProjectAstral") and self.private and self.private.astral and self.private.astral.enable ~= false
+function E:IsOutlawEnabled()
+	return IsAddOnLoaded("OutlawCraft") and self.private and self.private.outlaw and self.private.outlaw.enable ~= false
 end
 
 do -- other non-english locales require this

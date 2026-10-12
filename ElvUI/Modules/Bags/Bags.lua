@@ -536,6 +536,60 @@ function B:ClearSlotAppearance(slot)
 	end
 end
 
+-- ʕ •ᴥ•ʔ✿ Canteen and tank fill, read the same way OutlawCraft does, drawn on the icon's left edge ✿ ʕ •ᴥ•ʔ
+local function VesselBarColor(kind, pct)
+	if pct < 10 then return 1, 0.1, 0.1 end
+	if kind == "water" then return 0.2, 0.5, 1 end
+	if kind == "murky water" then return 0.55, 0.6, 0.35 end
+	if kind == "empty" then return 0.45, 0.45, 0.45 end
+	return 1, 0.45, 0
+end
+
+local function HideVesselBar(slot)
+	if slot.vesselBar then slot.vesselBar:Hide() end
+end
+
+function B:UpdateVesselBar(slot, bagID, slotID, link)
+	local V = _G.OutlawCraft and _G.OutlawCraft.Vessel
+	if not (V and link and E.ScanTooltip and slot.iconTexture) then return HideVesselBar(slot) end
+	local entry = V.ParseItemLink(link)
+	local spec = entry and V.ENTRIES[entry]
+	if not spec then return HideVesselBar(slot) end
+
+	E.ScanTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	E.ScanTooltip:SetBagItem(bagID, slotID)
+	local charges = V.ChargesFromTooltip(E.ScanTooltip)
+	E.ScanTooltip:Hide()
+
+	local pct = spec.kind == "empty" and 0 or charges
+	if pct == nil then return HideVesselBar(slot) end
+	if pct < 0 then pct = 0 end
+
+	if not slot.vesselBar then
+		local bar = CreateFrame("StatusBar", nil, slot)
+		bar:SetOrientation("VERTICAL")
+		bar:SetFrameLevel(slot:GetFrameLevel() + 4)
+		bar:SetWidth(4)
+		bar:Point("TOPLEFT", slot.iconTexture, "TOPLEFT", 1, -1)
+		bar:Point("BOTTOMLEFT", slot.iconTexture, "BOTTOMLEFT", 1, 1)
+		bar:SetStatusBarTexture(E.media.normTex)
+		bar:SetMinMaxValues(0, 100)
+		bar:CreateBackdrop("Default")
+		local text = bar:CreateFontString(nil, "OVERLAY")
+		text:Point("BOTTOMLEFT", slot.iconTexture, "BOTTOMLEFT", 6, 1)
+		text:FontTemplate(nil, 8, "OUTLINE")
+		bar.text = text
+		slot.vesselBar = bar
+	end
+
+	local r, g, b = VesselBarColor(spec.kind, pct)
+	slot.vesselBar:SetValue(pct)
+	slot.vesselBar:SetStatusBarColor(r, g, b)
+	slot.vesselBar.text:SetText(pct.."%")
+	slot.vesselBar.text:SetTextColor(r, g, b)
+	slot.vesselBar:Show()
+end
+
 function B:UpdateSlot(frame, bagID, slotID)
 	if (frame.Bags[bagID] and frame.Bags[bagID].numSlots ~= GetContainerNumSlots(bagID)) or not frame.Bags[bagID] or not frame.Bags[bagID][slotID] then return end
 
@@ -584,6 +638,7 @@ function B:UpdateSlot(frame, bagID, slotID)
 	SetItemButtonTexture(slot, texture)
 	SetItemButtonCount(slot, count)
 	SetItemButtonDesaturated(slot, slot.locked or slot.junkDesaturate)
+	B:UpdateVesselBar(slot, bagID, slotID, texture and clink)
 
 	if GameTooltip:GetOwner() == slot and not slot.hasItem then
 		GameTooltip_Hide()
@@ -1309,7 +1364,7 @@ end
 function B:UpdateBagSearchAnchors(f)
 	if not f or f.isBank or not f.editBox or not f.holderFrame then return end
 
-	local rightAnchor = f.reagentButton or f.vendorGraysButton or f.bagsButton or f.sortButton
+	local rightAnchor = f.vendorGraysButton or f.bagsButton or f.sortButton
 	if not rightAnchor then return end
 
 	f.editBox:ClearAllPoints()
@@ -1333,15 +1388,6 @@ function B:CleanupBagHeaderButtons(f)
 	end
 
 	B:UpdateBagSearchAnchors(f)
-end
-
-function B:DepositToReagentBank()
-	PlaySound("igMainMenuOption")
-	if _G.AIO and _G.AIO.Handle then
-		_G.AIO.Handle("AstralBankServer", "DepositAll")
-		return
-	end
-	E:Print("Astral reagent bank is not available.")
 end
 
 local function BagUpdate(self, bagIDs)
@@ -1642,28 +1688,6 @@ function B:ContructContainerFrame(name, isBank)
 		f.vendorGraysButton:SetScript("OnEnter", B.Tooltip_Show)
 		f.vendorGraysButton:SetScript("OnLeave", GameTooltip_Hide)
 		f.vendorGraysButton:SetScript("OnClick", B.VendorGrayCheck)
-
-		-- ʕ •ᴥ•ʔ✿ Deposit trade goods / reagents into the reagent bank ✿ ʕ •ᴥ•ʔ
-		if E:IsAstralEnabled() then
-			f.reagentButton = CreateFrame("Button", name.."ReagentButton", f)
-			f.reagentButton:Size(16 + E.Border)
-			f.reagentButton:SetTemplate()
-			f.reagentButton:Point("RIGHT", f.vendorGraysButton, "LEFT", -5, 0)
-			f.reagentButton:SetNormalTexture("Interface\\Icons\\INV_Misc_Bag_10_Green")
-			f.reagentButton:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-			f.reagentButton:GetNormalTexture():SetInside()
-			f.reagentButton:SetPushedTexture("Interface\\Icons\\INV_Misc_Bag_10_Green")
-			f.reagentButton:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
-			f.reagentButton:GetPushedTexture():SetInside()
-			f.reagentButton:StyleButton(nil, true)
-			f.reagentButton.ttText = "Deposit Reagents"
-			f.reagentButton:SetScript("OnEnter", B.Tooltip_Show)
-			f.reagentButton:SetScript("OnLeave", GameTooltip_Hide)
-			f.reagentButton:SetScript("OnClick", function()
-				B:DepositToReagentBank()
-			end)
-			f.reagentButton.__elvReagentButton = true
-		end
 
 		--Search
 		f.editBox = CreateFrame("EditBox", name.."EditBox", f)

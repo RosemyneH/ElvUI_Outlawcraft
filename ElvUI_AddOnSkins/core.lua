@@ -108,7 +108,6 @@ local addonList = {
 	"RCLootCouncil",
 	"QDKP2_GUI",
 	"LootWonAlert",
-	"ProjectAstral",
 	"OutlawCraft",
 }
 local addonAlias = {

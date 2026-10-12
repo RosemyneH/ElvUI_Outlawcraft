@@ -74,7 +74,6 @@ RegisterNeedsText("Food & Water", function(N, hunger, thirst)
 end)
 
 -- ʕ ◕ᴥ◕ ʔ✿ Exposure is pushed by the server, so the datatext follows OutlawCraft's own Refresh ✿ ʕ ◕ᴥ◕ ʔ
-local COMFORTABLE, DRY = 2, 0
 local exposurePanels = {}
 local exposureHooked
 
@@ -98,21 +97,7 @@ local function ExposureOnEvent(self)
 
 	local hc = X.HEAT_COLOURS[s.heatStage] or X.HEAT_COLOURS[2]
 	local wc = X.WET_COLOURS[s.wetStage] or X.WET_COLOURS[0]
-	local hide = E.db.datatexts.hideExposureNormal
-	local parts = {}
-	if not (hide and s.heatStage == COMFORTABLE) then
-		parts[#parts + 1] = Colored(hc[1], hc[2], hc[3], X.HEAT_STAGES[s.heatStage] or "")
-	end
-	if not (hide and s.wetStage == DRY) then
-		parts[#parts + 1] = Colored(wc[1], wc[2], wc[3], X.WET_STAGES[s.wetStage] or "")
-	end
-	self.text:SetText(table.concat(parts, " / "))
-end
-
-local function ExposureOnClick(self, button)
-	if button ~= "RightButton" then return end
-	E.db.datatexts.hideExposureNormal = not E.db.datatexts.hideExposureNormal
-	ExposureOnEvent(self)
+	self.text:SetText(Colored(hc[1], hc[2], hc[3], X.HEAT_STAGES[s.heatStage] or "").." / "..Colored(wc[1], wc[2], wc[3], X.WET_STAGES[s.wetStage] or ""))
 end
 
 local function ExposureOnEnter(self)
@@ -132,9 +117,7 @@ local function ExposureOnEnter(self)
 	if X.Has(s.flags, 1) then DT.tooltip:AddLine("Sheltered", 0.7, 0.7, 0.7) end
 	if X.Has(s.flags, 2) then DT.tooltip:AddLine("By a fire", 0.7, 0.7, 0.7) end
 	if X.Has(s.flags, 4) then DT.tooltip:AddLine("Rained or snowed on", 0.7, 0.7, 0.7) end
-	DT.tooltip:AddLine(" ")
-	DT.tooltip:AddLine("Right-click: hide Comfortable / Dry", 0.6, 0.6, 0.6)
 	DT.tooltip:Show()
 end
 
-DT:RegisterDatatext("Exposure", {"PLAYER_ENTERING_WORLD"}, ExposureOnEvent, nil, ExposureOnClick, ExposureOnEnter, nil, "Exposure")
+DT:RegisterDatatext("Exposure", {"PLAYER_ENTERING_WORLD"}, ExposureOnEvent, nil, nil, ExposureOnEnter, nil, "Exposure")

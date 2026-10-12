@@ -97,6 +97,5 @@
 	<Script file="RCLootCouncil.lua"/>
 	<Script file="QDKP2_GUI.lua"/>
 	<Script file="LootWonAlert.lua"/>
-	<Script file="projectAstral.lua"/>
 	<Script file="outlawCraft.lua"/>
 </Ui>

@@ -6,7 +6,7 @@ local _G = _G
 local unpack, tonumber, select = unpack, tonumber, select
 local twipe, tinsert, tconcat = table.wipe, table.insert, table.concat
 local floor = math.floor
-local find, format, sub, match = string.find, string.format, string.sub, string.match
+local find, format, sub, match, gsub = string.find, string.format, string.sub, string.match, string.gsub
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetTime = GetTime
@@ -201,7 +201,12 @@ function TT:RemoveTrashLines(tt)
 
 		if linetext == PVP or linetext == FACTION_ALLIANCE or linetext == FACTION_HORDE then
 			tiptext:SetText(nil)
---			tiptext:Hide()
+			tiptext:Hide()
+			local right = _G["GameTooltipTextRight"..i]
+			if right then
+				right:SetText(nil)
+				right:Hide()
+			end
 		end
 	end
 end
@@ -464,6 +469,145 @@ end
 
 function TT:GameTooltip_OnTooltipCleared(tt)
 	tt.itemCleared = nil
+	if tt.vesselPctLine then
+		tt.vesselPctLine:SetAlpha(1)
+	end
+	if tt.vesselStatusBar and tt.vesselStatusBar.vesselLabel then
+		tt.vesselStatusBar.vesselLabel:Hide()
+	end
+	tt.vesselFooterLine = nil
+	tt.vesselPctLine = nil
+	tt.vesselPctLabel = nil
+	if tt.vesselStatusBar then
+		tt.vesselStatusBar:Hide()
+		tt.vesselStatusBar = nil
+	end
+end
+
+local chargePatterns
+
+local function ChargePatterns()
+	if chargePatterns then return chargePatterns end
+	chargePatterns = {}
+	local fmt = _G.ITEM_SPELL_CHARGES or "%d |4Charge:Charges;"
+	local one, many = match(fmt, "|4([^:;]*):([^;]*);")
+	local forms = {}
+	if one then
+		tinsert(forms, (gsub(fmt, "|4[^;]*;", one, 1)))
+		tinsert(forms, (gsub(fmt, "|4[^;]*;", many, 1)))
+	end
+	tinsert(forms, fmt)
+	for _, form in ipairs(forms) do
+		local escaped = gsub(form, "(%W)", "%%%1")
+		escaped = gsub(escaped, "%%%%d", "(%%d+)")
+		tinsert(chargePatterns, "^"..escaped.."$")
+	end
+	return chargePatterns
+end
+
+local function IsChargeLine(text)
+	if _G.ITEM_SPELL_CHARGES_NONE and text == _G.ITEM_SPELL_CHARGES_NONE then return true end
+	for _, pattern in ipairs(ChargePatterns()) do
+		if match(text, pattern) then return true end
+	end
+end
+
+local function HideTooltipLine(tt, index)
+	local name = tt:GetName()
+	if not name then return end
+	local left = _G[name.."TextLeft"..index]
+	local right = _G[name.."TextRight"..index]
+	if left then left:SetText(nil) left:Hide() end
+	if right then right:SetText(nil) right:Hide() end
+end
+
+local function VesselCountText(num, numall)
+	local mode = E.db.tooltip.itemCount
+	local bag = format("|cFFCA3C3C%s|r %d", L["Count"], num)
+	local bank = format("|cFFCA3C3C%s|r %d", L["Bank"], numall - num)
+	if mode == "BAGS_ONLY" then return bag end
+	if mode == "BANK_ONLY" then return bank end
+	if mode == "BOTH" then return bag.."   "..bank end
+end
+
+local function VesselKindText(kind)
+	if kind ~= "gas" then return kind end
+	local icon = _G.OutlawCraft and _G.OutlawCraft.Helm and _G.OutlawCraft.Helm.GAS_ICON
+	icon = icon or "Interface\\AddOns\\OutlawCraft\\Textures\\MarkerFuel"
+	return "|T"..icon..":14|t "..kind
+end
+
+-- ʕ •ᴥ•ʔ✿ Width plus a text reset, or justify stays left and the glyphs hug the left edge ✿ ʕ •ᴥ•ʔ
+local function CenterFlowLine(tt, line, text)
+	if not line then return end
+	text = text or line:GetText()
+	if not text or text == "" or text == " " then return end
+	local ttLeft, lineLeft = tt:GetLeft(), line:GetLeft()
+	local inset = (ttLeft and lineLeft) and (lineLeft - ttLeft) or 8
+	if inset < 0 then inset = 8 end
+	local width = (tt:GetWidth() or 0) - inset * 2
+	if width > 0 then
+		line:SetWidth(width)
+	end
+	line:SetJustifyH("CENTER")
+	line:SetText(text)
+	line:Show()
+end
+
+-- ʕ •ᴥ•ʔ✿ Canteens and tanks: count beside the contents, fill percent centered on the bar ✿ ʕ •ᴥ•ʔ
+function TT:ApplyVesselLines(tt, link)
+	local V = _G.OutlawCraft and _G.OutlawCraft.Vessel
+	if not V or not V.ENTRIES or not V.ParseItemLink then return end
+	local entry = V.ParseItemLink(link)
+	local spec = entry and V.ENTRIES[entry]
+	if not spec then return end
+
+	local charges = V.ChargesFromTooltip and V.ChargesFromTooltip(tt)
+	local fill = V.FillLine and V.FillLine(entry, charges)
+	local name = tt:GetName()
+	for i = 2, tt:NumLines() do
+		local left = name and _G[name.."TextLeft"..i]
+		local text = left and left:GetText()
+		if text and (text == fill or IsChargeLine(text)) then
+			HideTooltipLine(tt, i)
+		end
+	end
+
+	tt.itemCleared = true
+	local countText = VesselCountText(GetItemCount(link), GetItemCount(link, true))
+	local kind = "|cff99e699"..VesselKindText(spec.kind).."|r"
+	local footer = countText and (countText.."    "..kind) or kind
+	tt:AddLine(footer)
+	tt.vesselFooterLine = name and _G[name.."TextLeft"..tt:NumLines()]
+	if spec.kind == "empty" or charges then
+		local pct = (spec.kind == "empty" or not charges or charges <= 0) and 0 or charges
+		local r, g, b = 1, 0.45, 0
+		if pct < 10 then
+			r, g, b = 1, 0.1, 0.1
+		elseif spec.kind == "water" then
+			r, g, b = 0.2, 0.5, 1
+		elseif spec.kind == "murky water" then
+			r, g, b = 0.55, 0.6, 0.35
+		elseif spec.kind == "empty" then
+			r, g, b = 0.45, 0.45, 0.45
+		end
+		local pctText = pct.."%"
+		local before = tt:NumLines()
+		GameTooltip_ShowStatusBar(tt, 0, 100, pct, pctText)
+		local line = (name and tt:NumLines() > before) and _G[name.."TextLeft"..(before + 1)]
+		if not line and name then
+			tt:AddLine(pctText, 1, 1, 1)
+			line = _G[name.."TextLeft"..tt:NumLines()]
+		end
+		local bar = name and _G[name.."StatusBar"..(tt.shownStatusBars or 1)]
+		if bar then
+			bar:SetStatusBarColor(r, g, b)
+			tt.vesselStatusBar = bar
+		end
+		tt.vesselPctLine = line
+		tt.vesselPctLabel = pctText
+	end
+	return true
 end
 
 function TT:GameTooltip_OnTooltipSetItem(tt)
@@ -486,6 +630,44 @@ function TT:GameTooltip_OnTooltipSetItem(tt)
 	local _, link = tt:GetItem()
 	if not link then return end
 
+	if self:ApplyVesselLines(tt, link) then
+		tt.itemCleared = true
+		tt:Show()
+		CenterFlowLine(tt, tt.vesselFooterLine)
+		local bar, line = tt.vesselStatusBar, tt.vesselPctLine
+		if line then
+			line:SetAlpha(0)
+		end
+		if bar then
+			local label = bar.Text or _G[bar:GetName().."Text"]
+			if label then label:SetText("") end
+			local inset = 12
+			bar:ClearAllPoints()
+			bar:SetHeight(5)
+			local top, bottom = line and line:GetTop(), line and line:GetBottom()
+			local ttBottom = tt:GetBottom()
+			if top and bottom and ttBottom then
+				local y = (top + bottom) / 2 - ttBottom - 2
+				bar:SetPoint("BOTTOMLEFT", tt, "BOTTOMLEFT", inset, y)
+				bar:SetPoint("BOTTOMRIGHT", tt, "BOTTOMRIGHT", -inset, y)
+			end
+			-- ʕ •ᴥ•ʔ✿ Number sits on the bar, so the fill does not cost a second line ✿ ʕ •ᴥ•ʔ
+			local pct = bar.vesselLabel
+			if not pct then
+				pct = bar:CreateFontString(nil, "OVERLAY", "GameTooltipText")
+				local font, size = GameTooltipText:GetFont()
+				pct:SetFont(font, size, "OUTLINE")
+				bar.vesselLabel = pct
+			end
+			pct:SetText(tt.vesselPctLabel or "")
+			pct:SetTextColor(1, 1, 1)
+			pct:ClearAllPoints()
+			pct:SetPoint("CENTER", bar, "CENTER", 0, 0)
+			pct:Show()
+		end
+		return
+	end
+
 	local num = GetItemCount(link)
 	local numall = GetItemCount(link, true)
 	local left, right, bankCount
@@ -500,7 +682,6 @@ function TT:GameTooltip_OnTooltipSetItem(tt)
 	end
 
 	if left or right then
-		tt:AddLine(" ")
 		tt:AddDoubleLine(left or " ", right or " ")
 	end
 	if bankCount then

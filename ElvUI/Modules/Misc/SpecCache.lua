@@ -210,7 +210,6 @@ local function UnitIsInspectable(unit)
 		if ok and not can then return false end
 	end
 	if IsCustomClass and not IsCustomClass(unit) then return false end
-	if UnitLevel(unit) < 10 then return false end
 	return true
 end
 

@@ -3,37 +3,35 @@
 All notable changes to ElvUI Outlawcraft are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
-Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_Astral).
 
 ## [7.44](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.44) (2026-10-05)
 
 ### Features
 
 * OutlawCraft add-on skin: every OutlawCraft window, button, slot and scroll bar in ElvUI media, fonts and colours
-* Datatexts for OutlawCraft: Hunger, Thirst, Hunger Regen, Food & Water (with regeneration tooltip) and Exposure (body heat / wetness; right-click or `/ec` → DataTexts → "Hide Comfortable / Dry" leaves out the normal stages)
+* Datatexts for OutlawCraft: Hunger, Thirst, Hunger Regen, Food & Water (with regeneration tooltip) and Exposure (body heat / wetness)
 * A Crafting tab under the spellbook's school tabs opens the Blueprints crafting window
 * ElvUI's loot frame stands down while the OutlawCraft loot window is enabled
 * ElvUI tooltips take over the tooltip look from OutlawCraft when the ElvUI tooltip module is on
 
 ### Changes
 
-* Project Astral features (micro button, GM icon, reagent bank button) require the ProjectAstral add-on
 * Update and support links point to ElvUI_Outlawcraft
 
-## [7.43](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.43) (2026-09-21)
+## [7.43](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.43) (2026-09-21)
 
 ### Fixes
 
 * Totem bar Edit Mode mover stays sized with the bar instead of initializing at 0×0 (thanks @Paddy)
 
-## [7.42](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.42) (2026-09-13)
+## [7.42](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.42) (2026-09-13)
 
 ### Fixes
 
 * DT Bars 2 no longer errors opening `/ec` when the strata option label is missing from the locale
 * Options UI ensures AceGUI-3.0 loads before AceConfigDialog to prevent a missing library error
 
-## [7.41](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.41) (2026-09-09)
+## [7.41](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.41) (2026-09-09)
 
 ### Features
 
@@ -43,13 +41,13 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 
 * DK nameplate runes only show on the current target, hide correctly when retargeting, and animate cooldown recharge
 
-## [7.40](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.40) (2026-09-09)
+## [7.40](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.40) (2026-09-09)
 
 ### Fixes
 
 * Death Knight nameplate runes no longer crash when targeting units
 
-## [7.39](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.39) (2026-09-07)
+## [7.39](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.39) (2026-09-07)
 
 ### Features
 
@@ -57,15 +55,7 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 * Auto-vendor grays when opening a merchant, with an optional detailed chat report
 * Party/raid leaders can broadcast instance resets to chat
 
-### Fixes
-
-* World GM nametags show `<GM>` instead of stacking the Astral texture
-
-## [7.38](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.38) (2026-09-07)
-
-### Features
-
-* Project Astral transmog appearances show in a 6×3 grid (18 cards per view)
+## [7.38](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.38) (2026-09-07)
 
 ### Fixes
 
@@ -73,7 +63,7 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 * Enhanced equipment/inspect hooks no longer depend on AscensionUI
 * Out-of-date prompts point at GitHub only
 
-## [7.37](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.37) (2026-09-07)
+## [7.37](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.37) (2026-09-07)
 
 ### Features
 
@@ -83,9 +73,8 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 ### Fixes
 
 * ACP addon skin is removed
-* Project Astral gem-deposit button is not created twice when QoL already added one
 
-## [7.36](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.36) (2026-09-06)
+## [7.36](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.36) (2026-09-06)
 
 ### Features
 
@@ -103,7 +92,7 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 * Unused 2D/3D portraits are hidden
 * Tags and bar smoothing return early when the unit is missing
 
-## [7.35](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.35) (2026-09-06)
+## [7.35](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.35) (2026-09-06)
 
 ### Features
 
@@ -113,15 +102,12 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 ### Fixes
 
 * Nameplate elements no longer error when a plate has no unit token
-* GM chat icon hook returns early if `UnitName` is called without a unit
 
-## [7.34](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.34) (2026-09-06)
+## [7.34](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.34) (2026-09-06)
 
 ### Features
 
-* Bag button deposits reagents through Project Astral (`AstralBankServer` DepositAll)
 * Nameplate hover highlight styles (glow / spark / fill) and name-only target glow
-* Optional Project Astral table skin under `/ec` → Astral
 
 ### Fixes
 
@@ -129,7 +115,7 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 * Nameplate DK runes color from WotLK rune types instead of a missing retail API
 * Collect Appearances / collect-transmog bag chrome is removed
 
-## [7.33](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.33) (2026-09-06)
+## [7.33](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.33) (2026-09-06)
 
 ### Fixes
 
@@ -138,36 +124,13 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 * Saved nameplate options are not reset on `/reload` (semver `7.32.0` was parsed as nil)
 * Stock RDF (`LFDQueueFrame`) is skinned again when Ascension LFG is not present
 
-## [7.32.0](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.32.0) (2026-09-06)
-
-### Features
-
-* Master Astral toggle and per-module options under `/ec` → Astral
-* Granular control over GM icon, micro button, and Project Astral hub/transmog/popup skins
+## [7.32.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.32.0) (2026-09-06)
 
 ### Fixes
 
-* GM icon initialization no longer errors before private settings load
 * Character menu (`C`) is skinned again with ElvUI Enhanced
 
-## [7.31.0](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.31.0) (2026-09-05)
-
-### Features
-
-* Astral texture replaces the Blizzard GM icon in chat and on 3D name tags
-* Project Astral transmogrify UI skin with compact layout, slot-aware appearance previews, and hover rotation
-
-## [7.30.0](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.30.0) (2026-09-05)
-
-### Features
-
-* GM chat icon is colored text instead of a stretched texture
-
-### Fixes
-
-* GM nameplate icons keep the Blizzard nameplate font
-
-## [7.29.0](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.29.0) (2026-09-05)
+## [7.29.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.29.0) (2026-09-05)
 
 ### Features
 
@@ -177,24 +140,18 @@ Releases up to 7.43 are from [ElvUI_Astral](https://github.com/RosemyneH/ElvUI_A
 
 * Buff frames no longer error when `C_VanityCollection` is missing
 
-## [7.28.0](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.28.0) (2026-09-05)
-
-### Features
-
-* ElvUI skin for Project Astral (panels, tabs, hover, toasts, and confirm popups)
-* Astral hub button on the ElvUI micro bar
+## [7.28.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.28.0) (2026-09-05)
 
 ### Fixes
 
-* GM chat icon no longer stretches into a long bar
 * `.mythic items` is never sent (Ascension leftover)
 * Chat no longer errors on channel notices (`string.isNilOrEmpty`)
 * Bag search recognizes Mythic item quality after login
 
-## [7.27.0](https://github.com/RosemyneH/ElvUI_Astral/releases/tag/v7.27.0) (2026-09-05)
+## [7.27.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/releases/tag/v7.27.0) (2026-09-05)
 
 ### Features
 
-* Initial public Astral pack for World of Warcraft 3.3.5a
+* Initial public pack for World of Warcraft 3.3.5a
 * ElvUI core, OptionsUI, AddOnSkins, Enhanced, EnhancedFriendsList, ExtraActionBars, DTBars2, and Party Damage
 * Automated GitHub Releases with changelog from Conventional Commits

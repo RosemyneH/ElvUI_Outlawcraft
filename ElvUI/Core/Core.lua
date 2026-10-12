@@ -1211,7 +1211,6 @@ function E:Initialize()
 	self.db = self.data.profile
 	self.global = self.data.global
 	self:ApplyAwesomeNameplateMode()
-	self:InitializeGMIcon()
 
 	self:CheckIncompatible()
 	self:DBConversions()

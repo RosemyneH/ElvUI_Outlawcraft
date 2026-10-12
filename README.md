@@ -61,12 +61,9 @@ Keep the folder names as they are. Do not nest them inside another directory.
 
 </div>
 
-- The **OutlawCraft** add-on skin restyles every OutlawCraft window (lockboxes, loot, crafting, clans, bounty board, guide and the rest) in ElvUI's media, fonts and colours. Toggle it under `/ec` → AddOn Skins.
-- New datatexts under `/ec` → DataTexts: **Hunger**, **Thirst**, **Hunger Regen**, **Food & Water** and **Exposure**.
-- With the skin on, the spellbook gets a **Crafting** tab below the school tabs.
-- While OutlawCraft's own loot window is on, ElvUI's loot frame stays out of the way so only one window opens.
-- With ElvUI tooltips enabled, ElvUI owns the tooltip look; OutlawCraft still adds its maker and realm lines.
-- Project Astral features (micro button, GM icon, reagent bank button) only switch on when the `ProjectAstral` add-on is present.
+- The **OutlawCraft** skin restyles every OutlawCraft window (lockboxes, loot, crafting, clans, bounty board, guide and the rest) in ElvUI's media, fonts and colours.
+- `/ec` → Outlaw toggles the skin, the spellbook **Crafting** tab, tooltip styling, the loot frame, and the exposure meter.
+- Datatexts under `/ec` → DataTexts: **Hunger**, **Thirst**, **Hunger Regen**, **Food & Water** and **Exposure**.
 
 ---
 

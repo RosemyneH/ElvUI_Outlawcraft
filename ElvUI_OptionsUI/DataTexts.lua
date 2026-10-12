@@ -147,12 +147,6 @@ E.Options.args.datatexts = {
 							type = "toggle",
 							name = L["Show Coins"],
 							desc = L["Use coin icons instead of colored text."]
-						},
-						hideExposureNormal = {
-							order = 8,
-							type = "toggle",
-							name = "Hide Comfortable / Dry",
-							desc = "Leave the Comfortable and Dry stages out of the Exposure datatext, so it only shows what is wrong. Right-click the datatext to toggle."
 						}
 					}
 				},

@@ -148,13 +148,10 @@ V.worldmap = {
 	enable = true
 }
 
-V.astral = {
+V.outlaw = {
 	enable = true,
-	gmIcon = true,
-	microButton = true,
-	hub = true,
-	transmog = true,
-	table = true,
-	minimapButton = true,
-	popups = true,
+	craftTab = true,
+	breakAll = true,
+	tooltips = true,
+	loot = true,
 }

@@ -29,14 +29,7 @@ local UnitIsFriend = UnitIsFriend
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsUnit = UnitIsUnit
 local UnitReaction = UnitReaction
-local function UnitName(unit)
-	if not unit then return end
-	local name, realm = _G.UnitName(unit)
-	if name then
-		name = E:ReplaceGMWorldName(name)
-	end
-	return name, realm
-end
+local UnitName = UnitName
 local WorldFrame = WorldFrame
 local WorldGetChildren = WorldFrame.GetChildren
 local WorldGetNumChildren = WorldFrame.GetNumChildren
@@ -391,7 +384,7 @@ function NP:OnShow(isConfig, dontHideHighlight)
 		NP.VisiblePlates[frame] = 1
 	end
 
-	frame.UnitName = E:ReplaceGMWorldName(gsub(frame.oldName:GetText() or "", FSPAT, ""))
+	frame.UnitName = gsub(frame.oldName:GetText() or "", FSPAT, "")
 	local reaction, unitType = NP:GetUnitInfo(frame)
 	local oldUnitType = frame.UnitType
 	frame.UnitType = unitType
@@ -688,13 +681,6 @@ function NP:OnCreated(frame)
 	unitFrame.oldCastBar.Shield = CastBarShield
 	unitFrame.oldCastBar.Icon = CastBarIcon
 	unitFrame.oldName = Name
-	local setPlateName = Name.SetText
-	Name.SetText = function(self, text)
-		if type(text) == "string" then
-			text = E:ReplaceGMWorldName(text)
-		end
-		return setPlateName(self, text)
-	end
 	unitFrame.oldHighlight = Highlight
 	unitFrame.oldLevel = Level
 

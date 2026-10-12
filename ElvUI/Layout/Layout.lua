@@ -422,17 +422,12 @@ function LO:CreateChatPanels()
 			handle:SetFrameStrata("HIGH")
 			handle:SetFrameLevel(panel:GetFrameLevel() + 20)
 
-			-- Center tab indicator with up arrow, sitting centered on the panel's top edge line
-			local indicator = CreateFrame("Frame", nil, handle)
-			indicator:SetAllPoints()
-			indicator:SetTemplate("Transparent")
-			indicator:Hide()
-
-			local arrow = indicator:CreateFontString(nil, "OVERLAY")
+			local arrow = handle:CreateFontString(nil, "OVERLAY")
 			arrow:FontTemplate(nil, 11, "OUTLINE")
-			arrow:SetPoint("CENTER", indicator, "CENTER", 0, 0)
+			arrow:SetPoint("CENTER")
 			arrow:SetText("▲")
 			arrow:SetTextColor(0.2, 0.6, 1)
+			arrow:Hide()
 
 			-- Create drag preview line
 			local previewLine = panel:CreateTexture(nil, "OVERLAY")
@@ -450,11 +445,11 @@ function LO:CreateChatPanels()
 			end
 
 			handle:SetScript("OnEnter", function()
-				indicator:Show()
+				arrow:Show()
 			end)
 			handle:SetScript("OnLeave", function()
 				if not handle.isDragging then
-					indicator:Hide()
+					arrow:Hide()
 				end
 			end)
 
@@ -520,7 +515,7 @@ function LO:CreateChatPanels()
 					CH:PositionChat()
 
 					if not MouseIsOver(self) then
-						indicator:Hide()
+						arrow:Hide()
 					end
 				end
 			end)

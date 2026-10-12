@@ -10,6 +10,8 @@ local GameTooltip = GameTooltip
 local InCombatLockdown = InCombatLockdown
 local RegisterStateDriver = RegisterStateDriver
 
+_G.SHOW_TALENT_LEVEL = 1
+
 local MICRO_BUTTONS = {
 	"CharacterMicroButton",
 	"SpellbookMicroButton",
@@ -173,6 +175,46 @@ function AB:UpdateMicroPositionDimensions()
 	self:UpdateMicroBarVisibility()
 end
 
+local function BuildIcon()
+	return select(3, GetSpellInfo(901514)) or "Interface\\Icons\\Trade_Engineering"
+end
+
+function AB:SetupBuildMicroButton()
+	local button = _G.LFDMicroButton
+	if not button then return end
+
+	local icon = BuildIcon()
+	button:SetNormalTexture(icon)
+	button:SetPushedTexture(icon)
+	button:SetDisabledTexture(icon)
+	button:Enable()
+
+	local l, r, t, b = unpack(E.TexCoords)
+	for _, tex in ipairs({button:GetNormalTexture(), button:GetPushedTexture(), button:GetDisabledTexture()}) do
+		if tex then
+			tex:SetTexCoord(l, r, t, b)
+			if button.backdrop then tex:SetInside(button.backdrop) end
+		end
+	end
+
+	button.tooltipText = "Build Menu"
+	button.newbieText = "Open the Blueprints window."
+	button:SetScript("OnClick", function()
+		local Builder = _G.OutlawCraft and _G.OutlawCraft.Builder
+		if not Builder then return end
+		if Builder.IsOpen() then Builder.Close() else Builder.Open() end
+	end)
+	if not button.buildTip then
+		button.buildTip = true
+		button:HookScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText("Build Menu", 1, 1, 1)
+			GameTooltip:AddLine("Open the Blueprints window.", 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+	end
+end
+
 function AB:UpdateMicroButtons()
 	if _G.PVPMicroButtonTexture and _G.PVPMicroButton then
 		PVPMicroButtonTexture:Point("TOPLEFT", PVPMicroButton, "TOPLEFT")
@@ -186,39 +228,16 @@ function AB:UpdateMicroButtons()
 		end
 	end
 
-	self:UpdateMicroPositionDimensions()
-end
-
-function AB:SetupAstralMicroButton()
-	if not E:IsAstralEnabled() or E.private.astral.microButton == false then return end
-	if _G.AstralMicroButton then return end
-
-	local button = CreateFrame("Button", "AstralMicroButton", ElvUI_MicroBar)
-	button.useFullIcon = true
-	button:RegisterForClicks("AnyUp")
-
-	local icon = "Interface\\AddOns\\ProjectAstral\\astralhub"
-	button:SetNormalTexture(icon)
-	button:SetPushedTexture(icon)
-	button:SetHighlightTexture(icon)
-
-	button:SetScript("OnClick", function()
-		if _G.ProjectAstral and ProjectAstral.ToggleMainMenu then
-			ProjectAstral:ToggleMainMenu()
+	if _G.TalentMicroButton then
+		_G.SHOW_TALENT_LEVEL = 1
+		TalentMicroButton:Enable()
+		if _G.MicroButtonTooltipText and _G.TALENTS then
+			TalentMicroButton.tooltipText = MicroButtonTooltipText(TALENTS, "TOGGLETALENTS")
 		end
-	end)
-	button:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:SetText("Project Astral", 1, 0.82, 0)
-		GameTooltip:AddLine("Open the Astral hub.", 1, 1, 1, true)
-		GameTooltip:Show()
-	end)
-	button:SetScript("OnLeave", function()
-		GameTooltip:Hide()
-	end)
+	end
 
-	MICRO_BUTTONS[#MICRO_BUTTONS + 1] = "AstralMicroButton"
-	self:HandleMicroButton(button)
+	self:SetupBuildMicroButton()
+	self:UpdateMicroPositionDimensions()
 end
 
 function AB:SetupMicroBar()
@@ -237,7 +256,7 @@ function AB:SetupMicroBar()
 		self:HandleMicroButton(_G[MICRO_BUTTONS[i]])
 	end
 
-	self:SetupAstralMicroButton()
+	self:SetupBuildMicroButton()
 
 	if CharacterMicroButton and CharacterMicroButton.backdrop then
 		MicroButtonPortrait:SetInside(CharacterMicroButton.backdrop)
