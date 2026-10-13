@@ -4,6 +4,13 @@ All notable changes to ElvUI Outlawcraft are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
 
+## [7.46.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/compare/v7.45.0...v7.46.0) (2026-10-13)
+
+
+### Features
+
+* join open lockbox stacks by withdrawing them and putting them back ([5fed2fb](https://github.com/RosemyneH/ElvUI_Outlawcraft/commit/5fed2fb341fc57b5ba2238b88081e1d2e79e6be4))
+
 ## [7.45.0](https://github.com/RosemyneH/ElvUI_Outlawcraft/compare/v7.44.0...v7.45.0) (2026-10-12)
 
 
