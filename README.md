@@ -62,7 +62,8 @@ Keep the folder names as they are. Do not nest them inside another directory.
 </div>
 
 - The **OutlawCraft** skin restyles every OutlawCraft window (lockboxes, loot, crafting, clans, bounty board, guide and the rest) in ElvUI's media, fonts and colours.
-- `/ec` → Outlaw toggles the skin, the spellbook **Crafting** tab, tooltip styling, the loot frame, and the exposure meter.
+- `/ec` → Outlaw toggles the skin, the spellbook **Crafting** tab, **Break down all**, tooltip styling, the loot frame, and the exposure meter. Shift-click smart deposit and lockbox **Sort** are included.
+- **qtoutlawqol** is that same crafting tab, break-down all, smart deposit, and sort as its own addon, with no ElvUI requirement. While it is enabled, this pack leaves those hooks to it.
 - Datatexts under `/ec` → DataTexts: **Hunger**, **Thirst**, **Hunger Regen**, **Food & Water** and **Exposure**.
 
 ---
